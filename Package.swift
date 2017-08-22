@@ -3,5 +3,8 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftTelegramBotAPI"
+    name: "SwiftTelegramBotAPI",
+    dependencies: [
+        .Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3)
+    ]
 )
