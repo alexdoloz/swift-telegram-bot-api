@@ -6,6 +6,9 @@ public struct Token {
     
     init?(string: String) {
         guard string != "" else { return nil }
+        guard string.rangeOfCharacter(from: CharacterSet.urlPathAllowed.inverted) == nil else {
+            return nil
+        }
         self.string = string
     }
 }

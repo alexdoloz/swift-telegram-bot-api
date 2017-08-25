@@ -28,7 +28,7 @@ public protocol RequestSender {
 }
 
 public protocol WebhookProvider {
-    var onUpdatesReceived: (Void) -> Void { get set }
+    var onUpdatesReceived: () -> Void { get set }
 }
 
 public enum UpdateMode {

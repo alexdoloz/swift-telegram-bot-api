@@ -1,4 +1,4 @@
 import Foundation
 
 
-typealias Id = Int64
+public typealias Id = Int64

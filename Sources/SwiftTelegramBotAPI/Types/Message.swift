@@ -1,14 +1,6 @@
 import Foundation
 
 
-public struct Chat {
-    
-}
-
-public struct MessageEntity {
-    
-}
-
 public struct Message {
     public var messageId: Int64
     public var from: User?
