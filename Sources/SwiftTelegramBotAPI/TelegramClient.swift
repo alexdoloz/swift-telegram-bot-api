@@ -6,7 +6,7 @@ public final class TelegramClient {
     public let token: Token
     
     
-    init(httpClient: HTTPClient, token: Token) {
+    public init(httpClient: HTTPClient, token: Token) {
         self.httpClient = httpClient
         self.token = token
     }

@@ -1,7 +1,6 @@
 import Foundation
 
 
-public extension In {
 public struct Message {
     public var messageId: Id
     public var from: User?
@@ -16,4 +15,4 @@ public struct Message {
     public var entities: [MessageEntity]
     // TODO: Add other fields
 }
-}
+

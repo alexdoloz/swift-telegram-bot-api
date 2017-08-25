@@ -16,7 +16,7 @@ public struct TelegramError: Error {
     public private(set) var errorDescription: String?
     public private(set) var parameters: ResponseParameters?
     
-    init(errorDescription: String? = nil, parameters: ResponseParameters? = nil) {
+    public init(errorDescription: String? = nil, parameters: ResponseParameters? = nil) {
         self.errorDescription = errorDescription
         self.parameters = parameters
     }
