@@ -47,12 +47,12 @@ public final class MethodExecutor {
         return dictionary
     }
     
-    public func execute<Input, Output>(method: Method<Input, Output>, params: Input, completion: @escaping (Result<Output, ErrorContainer>) -> Void) {
+    public func execute<Input, Output>(method: Method<Input, Output>, params: Input, completion: @escaping (Result<Output, ErrorBox>) -> Void) {
         do {
             let paramsDictionary = try dictionary(from: params)
             let request = try requestComposer.composeRequest(method: method.name,  passing: .multipartFormData, params: paramsDictionary)
             requestSender.send(request: request) { [unowned self](result) in
-                var finalResult: Result<Output, ErrorContainer>
+                var finalResult: Result<Output, ErrorBox>
                 defer {
                     self.completionQueue.async {
                         completion(finalResult)
@@ -65,15 +65,15 @@ public final class MethodExecutor {
                         let output = try jsonDecoder.decode(Output.self, from: data)
                         finalResult = .success(output)
                     } catch {
-                        finalResult = .failure(ErrorContainer(error))
+                        finalResult = .failure(ErrorBox(error))
                     }
                 case .failure(let error):
-                    finalResult = .failure(ErrorContainer(error))
+                    finalResult = .failure(ErrorBox(error))
                 }
             }
         } catch {
             completionQueue.async {
-                completion(.failure(ErrorContainer(error)))
+                completion(.failure(ErrorBox(error)))
             }
         }
         
