@@ -23,12 +23,12 @@ public struct JustError: Error, CustomStringConvertible, CustomDebugStringConver
 
 public final class MethodExecutor {
     private let requestComposer: RequestComposer
-    private let requestSender: RequestSender
+    private let httpClient: HTTPClient
     private let completionQueue: DispatchQueue
     
-    public init(token: Token, requestSender: RequestSender, completionQueue: DispatchQueue = .main) {
+    public init(token: Token, httpClient: HTTPClient, completionQueue: DispatchQueue = .main) {
         self.requestComposer = TelegramRequestComposer(token: token)
-        self.requestSender = requestSender
+        self.httpClient = httpClient
         self.completionQueue = completionQueue
     }
     
@@ -51,7 +51,7 @@ public final class MethodExecutor {
         do {
             let paramsDictionary = try dictionary(from: params)
             let request = try requestComposer.composeRequest(method: method.name,  passing: .multipartFormData, params: paramsDictionary)
-            requestSender.send(request: request) { [unowned self](result) in
+            httpClient.send(request: request) { [unowned self](result) in
                 var finalResult: Result<Output, ErrorBox>
                 defer {
                     self.completionQueue.async {
