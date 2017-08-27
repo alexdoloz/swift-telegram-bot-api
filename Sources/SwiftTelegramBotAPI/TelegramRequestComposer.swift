@@ -17,7 +17,7 @@ public enum ParamPassing {
 
 
 public protocol RequestComposer {
-    func composeRequest(method: TelegramMethod, passing: ParamPassing, params: [String: Any]) throws -> URLRequest
+    func composeRequest(method: String, passing: ParamPassing, params: [String: Any]) throws -> URLRequest
 }
 
 
@@ -29,16 +29,16 @@ public final class TelegramRequestComposer: RequestComposer {
         self.token = token
     }
     
-    public func composeRequest(method: TelegramMethod, passing: ParamPassing = .multipartFormData, params: [String : Any]) throws -> URLRequest {
+    public func composeRequest(method: String, passing: ParamPassing = .multipartFormData, params: [String : Any]) throws -> URLRequest {
         return try composeMultipartFormDataRequest(method: method, params: params)
     }
     
-    private func composeURL(method: TelegramMethod) -> URL {
+    private func composeURL(method: String) -> URL {
         let auth = "bot" + token.string
-        return TelegramRequestComposer.baseURL.appendingPathComponent(auth).appendingPathComponent(method.string)
+        return TelegramRequestComposer.baseURL.appendingPathComponent(auth).appendingPathComponent(method)
     }
     
-    private func composeMultipartFormDataRequest(method: TelegramMethod, params: [String: Any]) throws -> URLRequest {
+    private func composeMultipartFormDataRequest(method: String, params: [String: Any]) throws -> URLRequest {
         let url = composeURL(method: method)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

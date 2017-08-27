@@ -12,6 +12,13 @@ public struct ResponseParameters {
     }
 }
 
+public struct ErrorContainer: Error {
+    let innerError: Error
+    init(_ innerError: Error) {
+        self.innerError = innerError
+    }
+}
+
 public struct TelegramError: Error {
     public private(set) var errorDescription: String?
     public private(set) var parameters: ResponseParameters?
