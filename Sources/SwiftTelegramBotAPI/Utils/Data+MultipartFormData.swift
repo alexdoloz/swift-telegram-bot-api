@@ -34,6 +34,7 @@ extension Data {
     
     init(multipartParams: [String: Any], boundary: String) throws {
         self = Data()
+        if multipartParams.count == 0 { return }
         for (key, value) in multipartParams {
             try self.append(boundary: boundary)
             var contentDispositionParams = ["name": key]

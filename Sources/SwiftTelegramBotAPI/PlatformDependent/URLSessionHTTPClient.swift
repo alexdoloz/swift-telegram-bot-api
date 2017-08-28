@@ -12,6 +12,8 @@ public class URLSessionHTTPClient: HTTPClient {
     }
     
     public func send(request: URLRequest, completion: @escaping (Result<Data, ErrorBox>) -> Void) {
+        print(String(data: request.httpBody!, encoding: .utf8)!)
+        print("sdjkfklsdj")
         let task = session.dataTask(with: request) { data, response, error in
             var result: Result<Data, ErrorBox>
             defer {

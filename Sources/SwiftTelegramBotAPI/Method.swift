@@ -62,8 +62,8 @@ public final class MethodExecutor {
                 case .success(let data):
                     let jsonDecoder = JSONDecoder()
                     do {
-                        let output = try jsonDecoder.decode(Output.self, from: data)
-                        finalResult = .success(output)
+                        let envelope = try jsonDecoder.decode(Envelope<Output>.self, from: data)
+                        finalResult = envelope.result
                     } catch {
                         finalResult = .failure(ErrorBox(error))
                     }

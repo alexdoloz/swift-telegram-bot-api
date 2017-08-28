@@ -1,7 +1,7 @@
 import Foundation
 
 
-public enum ParseMode: String {
+public enum ParseMode: String, Encodable {
     case markdown = "Markdown"
     case html = "HTML"
 }

@@ -8,6 +8,10 @@ public struct ErrorBox: Error, CustomStringConvertible {
         self.innerError = innerError
     }
     
+    public init(_ errorDescription: String) {
+        self.innerError = JustError(errorDescription)
+    }
+    
     public var description: String {
         return "\(innerError)"
     }

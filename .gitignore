@@ -86,6 +86,8 @@ playground.xcworkspace
 .build/
 *.xcodeproj 
 
+Scratchpad/
+
 # CocoaPods - Refactored to standalone file
 
 # Carthage - Refactored to standalone file

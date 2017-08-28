@@ -43,7 +43,9 @@ public final class TelegramRequestComposer: RequestComposer {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let boundary = String.createBoundary()
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        if params.count != 0 {
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        }
         request.httpBody = try Data(multipartParams: params, boundary: boundary)
         return request
     }
