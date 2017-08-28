@@ -49,7 +49,8 @@ extension Data {
             }
             try self.appendContentDisposition(params: contentDispositionParams)
             try self.appendNewline()
-            try self.append(string: "\(value)")
+            let jsonRepresentation = makeJSONLikeRepresentation(from: value)
+            try self.append(string: jsonRepresentation)
             try self.appendNewline()
         }
         try self.append(boundary: boundary, trailingDashes: true)

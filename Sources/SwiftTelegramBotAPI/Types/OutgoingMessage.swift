@@ -8,6 +8,7 @@ public struct OutgoingMessage: Encodable {
     public var shouldDisableWebPagePreview: Bool = false
     public var shouldDisableNotification: Bool = false
     public var replyToMessageId: Id?
+    public var replyMarkup: AbstractKeyboard?
     
     public init(
         chatId: ChatId,
@@ -15,7 +16,8 @@ public struct OutgoingMessage: Encodable {
         parseMode: ParseMode? = nil,
         shouldDisableWebPagePreview: Bool = false,
         shouldDisableNotification: Bool = false,
-        replyToMessageId: Id? = nil
+        replyToMessageId: Id? = nil,
+        replyMarkup: AbstractKeyboard? = nil
     ) {
         self.chatId = chatId
         self.text = text
@@ -23,9 +25,8 @@ public struct OutgoingMessage: Encodable {
         self.shouldDisableWebPagePreview = shouldDisableWebPagePreview
         self.shouldDisableNotification = shouldDisableNotification
         self.replyToMessageId = replyToMessageId
+        self.replyMarkup = replyMarkup
     }
-    
-    // public var replyMarkup: ReplyMarkup?
     // FIXME: Temporarily disable this field until all keyboards be Encodable
     public enum CodingKeys: String, CodingKey {
         case chatId = "chat_id"
@@ -34,7 +35,7 @@ public struct OutgoingMessage: Encodable {
         case shouldDisableWebPagePreview = "disable_web_page_preview"
         case shouldDisableNotification = "disable_notification"
         case replyToMessageId = "reply_to_message_id"
-//        case replyMarkup = "reply_markup"
+        case replyMarkup = "reply_markup"
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -45,6 +46,7 @@ public struct OutgoingMessage: Encodable {
         try container.encode(shouldDisableWebPagePreview, forKey: .shouldDisableWebPagePreview)
         try container.encode(shouldDisableNotification, forKey: .shouldDisableNotification)
         try container.encodeIfPresent(replyToMessageId, forKey: .replyToMessageId)
+        try container.encodeIfPresent(replyMarkup, forKey: .replyMarkup)
     }
 }
 

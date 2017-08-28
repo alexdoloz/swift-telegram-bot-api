@@ -1,6 +1,6 @@
 import Foundation
 
 
-public struct CallbackGame {
+public struct CallbackGame: Encodable {
     
 }
